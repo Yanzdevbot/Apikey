@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dokumentasi API | OwnBlox</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #007bff;
+            --primary-dark: #0056b3;
+            --primary-light: #e7f1ff;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            padding: 1.5rem;
+            background: var(--primary);
+            color: white;
+            position: relative;
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .category-body {
+            padding: 1.5rem;
+        }
+
+        .endpoint-count {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .online-count {
+            color: var(--success);
+            font-weight: 500;
+            margin-right: 1rem;
+        }
+
+        .offline-count {
+            color: var(--danger);
+            font-weight: 500;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .view-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .view-btn i {
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category-card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+        .category-card:nth-child(5) { animation-delay: 0.5s; }
+        .category-card:nth-child(6) { animation-delay: 0.6s; }
+        .category-card:nth-child(7) { animation-delay: 0.7s; }
+        .category-card:nth-child(8) { animation-delay: 0.8s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dokumentasi API OwnBlox</h1>
+            <p class="subtitle">Temukan semua kategori API yang tersedia untuk membangun aplikasi Anda</p>
+        </header>
+
+        <div class="category-grid">
+            <!-- Downloader -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-cloud-download-alt"></i>
+                    </div>
+                    <h3 class="category-title">Downloader</h3>
+                    <div class="category-count">7 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 6 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 1 Offline</span>
+                    </div>
+                    <p>Download konten dari YouTube, TikTok, Instagram, Facebook, dan lainnya.</p>
+                    <button class="view-btn" onclick="showCategory('downloader')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="category-title">Search</h3>
+                    <div class="category-count">8 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 7 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 1 Offline</span>
+                    </div>
+                    <p>Cari grup WhatsApp, video TikTok, meme random, dan lainnya.</p>
+                    <button class="view-btn" onclick="showCategory('search')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stalker -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3 class="category-title">Stalker</h3>
+                    <div class="category-count">2 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 2 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 0 Offline</span>
+                    </div>
+                    <p>Stalking akun Genshin Impact dan GitHub.</p>
+                    <button class="view-btn" onclick="showCategory('stalker')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- AI -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="category-title">AI</h3>
+                    <div class="category-count">3 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 3 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 0 Offline</span>
+                    </div>
+                    <p>LLaMA 3.3, Gemini AI, dan Text-to-Image generator.</p>
+                    <button class="view-btn" onclick="showCategory('ai')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tools -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="category-title">Tools</h3>
+                    <div class="category-count">7 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 7 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 0 Offline</span>
+                    </div>
+                    <p>Translate, screenshot web, QR code generator, dan lainnya.</p>
+                    <button class="view-btn" onclick="showCategory('tools')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fun -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3 class="category-title">Fun</h3>
+                    <div class="category-count">2 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 2 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 0 Offline</span>
+                    </div>
+                    <p>Cek khodam dan fakta random "Tahu kah kamu?".</p>
+                    <button class="view-btn" onclick="showCategory('fun')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sticker -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <h3 class="category-title">Sticker</h3>
+                    <div class="category-count">2 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 2 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 0 Offline</span>
+                    </div>
+                    <p>Buat gambar brat dan quoted chat custom.</p>
+                    <button class="view-btn" onclick="showCategory('sticker')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Berita -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3 class="category-title">Berita</h3>
+                    <div class="category-count">2 Endpoint</div>
+                </div>
+                <div class="category-body">
+                    <div class="endpoint-count">
+                        <span class="online-count"><i class="fas fa-check-circle"></i> 1 Online</span>
+                        <span class="offline-count"><i class="fas fa-times-circle"></i> 1 Offline</span>
+                    </div>
+                    <p>Berita terbaru dari Detik News dan Kompas.</p>
+                    <button class="view-btn" onclick="showCategory('berita')">
+                        <i class="fas fa-arrow-right"></i> Lihat Endpoint
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 OwnBlox API. All rights reserved.</p>
+            <p>Dokumentasi terakhir diperbarui: November 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        function showCategory(category) {
+            // Redirect ke halaman utama dengan hash category
+            window.location.href = `/#${category}`;
+            
+            // Atau bisa diubah untuk menampilkan modal jika diperlukan
+            // console.log(`Menampilkan kategori: ${category}`);
+        }
+
+        // Animasi hover card
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
+            });
+        });
+    </script>
+</body>
+</html>
